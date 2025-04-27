@@ -32,9 +32,7 @@ agent = Agent(ollama_model, mcp_servers=[dbmcp])
 
 
 async def run():
-    print("in run")
     async with agent.run_mcp_servers():
-        print("agent.run")
         result = await agent.run(
             """
             Please do the following:
@@ -46,5 +44,4 @@ async def run():
             """)
     print(result.output)
 
-print("about to asyncio.run")
 asyncio.run(run())
