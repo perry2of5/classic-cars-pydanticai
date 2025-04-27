@@ -1,0 +1,13 @@
+services:
+    mysql:
+        image: mysql
+        ports:
+            - "3306:3306"
+        environment:
+            MYSQL_ROOT_PASSWORD: SomeRootPassword1!
+            MYSQL_USER: someuser
+            MYSQL_PASSWORD: Password1!
+            MYSQL_DATABASE: classicmodels
+        volumes:
+            - ./data/:/docker-entrypoint-initdb.d
+

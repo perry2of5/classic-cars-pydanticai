@@ -46,34 +46,5 @@ async def run():
             """)
     print(result.output)
 
-
-server_params = StdioServerParameters(
-    command='uvx',
-    args=[
-        '--from',
-        'mysql-mcp-server',
-        'mysql_mcp_server',
-    ],
-    env={
-        "MYSQL_HOST":"127.0.0.1",
-        "MYSQL_PORT":"3306",
-        "MYSQL_USER":"someuser",
-        "MYSQL_PASSWORD":"Password1!",
-        "MYSQL_DATABASE":"classicmodels",    
-    },
-    log_level="debug",
-)
-
-async def run2():
-    print("in run2")    
-    async with stdio_client(server_params) as (read, write):
-        async with ClientSession(read, write) as session:
-            await session.initialize()
-            tools = await session.list_tools()
-            print(tools.tools)
-            print(repr(tools.tools[0].inputSchema))
-            result = await session.call_tool('execute_sql', {'query':'SHOW TABLES'})
-            print(result.content[0].text)
-
 print("about to asyncio.run")
 asyncio.run(run())
