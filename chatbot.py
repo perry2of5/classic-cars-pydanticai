@@ -39,7 +39,6 @@ async def query_model_classic_car_db(message: str, history) -> str:
     async with agent.run_mcp_servers():
         print("processing: " + message)
         result = await agent.run(message)
-    # print(result.output)
     return result.output
 
 
@@ -51,13 +50,10 @@ demo = gr.ChatInterface(
 )
 
 async def launcher():
-    print("launching")
     demo.launch(share=True)
-    print("done launching")
 
 def main():
     asyncio.run(launcher())
-    print("exited launcer")
 
 if __name__ == "__main__":
     main()
