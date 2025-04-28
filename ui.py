@@ -35,17 +35,23 @@ agent = Agent(model=ollama_model, mcp_servers=[dbmcp],
             based on the database, say so. Do not guess.
             """)
 
-
-async def run():
+async def run(prompt: str) -> str:
     async with agent.run_mcp_servers():
-        result = await agent.run(
-            """
-            Please determine which 10 products are most commonly sold in December and present the top 10 products in a table.
-            """)
+        result = await agent.run(prompt)
     print(result.output)
+    return result.output
 
-def main():
-    asyncio.run(run())
 
-if __name__ == "__main__":
-    main()
+import gradio as gr
+
+demo = gr.Interface(
+    fn=run,
+    inputs=["textbox"],
+    outputs=["textbox"],
+)
+
+print("launching")
+demo.launch()
+print("launched")
+
+
